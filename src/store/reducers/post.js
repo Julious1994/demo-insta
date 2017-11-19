@@ -70,11 +70,25 @@ export default function reducer(state = postState, action) {
         case ACTIONS.ADD_LIKE: {
             const postIndex = state.post.findIndex( p => p.postId === data.postId);
             const currentPost = state.post[postIndex];
-            const likeData = {
-                commentId: currentPost.likes.length,
-                userId: data.userId,
+            const targetIndex = currentPost.likes.findIndex(like => like.userId === data.userId);
+            if (targetIndex === -1) {
+                const likeData = {
+                    likeId: currentPost.likes.length + 1,
+                    userId: data.userId,
+                }
+                currentPost.likes.push(likeData);
             }
-            currentPost.likes.push(likeData);
+            postList[postIndex] = currentPost;
+            return Object.assign({}, state, {
+                post: postList,
+            });
+            break;
+        }
+        case ACTIONS.REMOVE_LIKE: {
+            const postIndex = state.post.findIndex( p => p.postId === data.postId);
+            const currentPost = state.post[postIndex];
+            const targetIndex = currentPost.likes.findIndex(like => like.userId === data.userId);
+            currentPost.likes.splice(targetIndex, 1);
             postList[postIndex] = currentPost;
             return Object.assign({}, state, {
                 post: postList,

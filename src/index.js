@@ -42,8 +42,9 @@ store.dispatch(ACTIONS.addPost(post));
 store.dispatch(ACTIONS.addComment(comment));
 store.dispatch(ACTIONS.addComment(comment2));
 store.dispatch(ACTIONS.addLike({ userId: 1, postId: 2}));
-store.dispatch(ACTIONS.addLike({ userId: 1, postId: 2}));
-store.dispatch(ACTIONS.addLike({ userId: 1, postId: 2}));
+store.dispatch(ACTIONS.addLike({ userId: 2, postId: 2}));
+store.dispatch(ACTIONS.addLike({ userId: 3, postId: 2}));
+store.dispatch(ACTIONS.removeLike({ userId: 2, postId: 2}));
 
 console.log(store.getState());
 
